@@ -298,14 +298,18 @@ if __name__ == "__main__":
 
         if result.get('code') == 0:
             content += extract_chinese(f"{result['data']['today_history']}")+ "\n"
+            sign_status = "success"
         else:
             print("签到失败")
+            sign_status = "failed"
 
         time.sleep(interval)
 
     if not cookies_found:
         content += "\033[31m[错误] 未找到任何有效的cookie配置，请检查环境变量ABLESCICOOKIE是否正确设置\033[0m\n"
+        sign_status = "failed"
     
     content += "="*26
     print(content)
-    send("科研通签到", content)
+    title = "✅ 科研通签到成功" if sign_status == "success" else "❌ 科研通签到失败"
+    send(title, content)
