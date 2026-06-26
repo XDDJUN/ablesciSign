@@ -311,5 +311,7 @@ if __name__ == "__main__":
     
     content += "="*26
     print(content)
-    title = "❌ 科研通签到失败" if sign_status != "success" else None
-    send(title, content)
+    if sign_status != "success":
+        send("❌ 科研通签到失败", content)
+    else:
+        print("签到成功，不推送通知")
